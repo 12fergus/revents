@@ -9,6 +9,7 @@ import {
 } from 'semantic-ui-react';
 import EventListAttendee from './EventListAttendee';
 import { AppEvent } from '../../../app/types/event';
+import { Link } from 'react-router-dom';
 
 type Props = {
   event: AppEvent;
@@ -20,7 +21,11 @@ export default function EventListItem({ event }: Props) {
       <Segment>
         <ItemGroup>
           <Item>
-            <Item.Image size="tiny" circular src={event.hostPhotoURL} />
+            <Item.Image
+              size="tiny"
+              circular
+              src={event.hostPhotoURL || '/user.png'}
+            />
             <Item.Content>
               <Item.Header>{event.title}</Item.Header>
               <Item.Description>Hosted by {event.hostedBy}</Item.Description>
@@ -45,7 +50,14 @@ export default function EventListItem({ event }: Props) {
       </Segment>
       <Segment clearing>
         <span>{event.description}</span>
-        <Button color="teal" floated="right" content="View" />
+        <Button
+          as={Link}
+          to={`/events/${event.id}`}
+          color="teal"
+          floated="right"
+          content="View"
+        />
+        <Button color="red" floated="right" content="Delete" />
       </Segment>
     </SegmentGroup>
   );
